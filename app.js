@@ -38,4 +38,17 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.use(function (req, res, next) {
+  const currentDate = new Date();
+  const day = currentDate.getDay();
+  const hour = currentDate.getHours();
+
+  // Check if it's Monday to Friday and between 9 to 17
+  if (day >= 1 && day <= 5 && hour >= 9 && hour <= 17) {
+    next();
+  } else {
+    res.send("Sorry, the website is only available during working hours (Monday to Friday, from 9 to 17).");
+  }
+});
+
 module.exports = app;
